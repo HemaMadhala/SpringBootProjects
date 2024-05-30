@@ -5,8 +5,7 @@ import com.app.contact.contactmanager.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -26,6 +25,13 @@ public class UserController {
     @GetMapping("/signup")
     public static String signup(Model model){
         model.addAttribute("title","Sign up - contact manager");
+        model.addAttribute("user", new User()) ;
+        return "signup";
+    }
+    @PostMapping("/do_signup")
+    public String registerUse(@ModelAttribute("user") User user, @RequestParam(value = "agreement", defaultValue = "false") boolean agreement, Model model){
+        System.out.println("Agreement: "+ agreement);
+        System.out.println("User: "+ user);
         return "signup";
     }
 }
